@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import './pages/products_overview_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -9,22 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'PetShop',
-      theme: ThemeData(primarySwatch: Colors.blue),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('PetShop App'),
-      ),
-      body: Center(
-        child: Text('Just start the project, Criss!'),
-      ),
+      theme: ThemeData(
+          primarySwatch: Colors.orange,
+      fontFamily: 'Lato',
+      accentColor: Colors.deepOrange),
+      home: ProductsOverviewPage(),
     );
   }
 }
