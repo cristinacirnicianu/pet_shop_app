@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petshopapp/providers/CartItem.dart';
 
 class Cart with ChangeNotifier {
-  Map<String, CartItem> _items;
+  Map<String, CartItem> _items ={};
 
   Map<String, CartItem> get getItems {
     return {..._items};
@@ -26,5 +26,10 @@ class Cart with ChangeNotifier {
               price: price,
               quantity: 1));
     }
+    notifyListeners();
+  }
+
+  int get itemCount {
+    return _items.length;
   }
 }
