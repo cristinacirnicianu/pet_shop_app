@@ -15,7 +15,7 @@ class ProductItem extends StatelessWidget {
       child: GridTile(
         child: GestureDetector(
           onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProductDetailPage(title)),);
+            Navigator.of(context).pushNamed(ProductDetailPage.routeName, arguments: id);
           },
             child: Image.network(imageUrl, fit: BoxFit.cover,)),
         footer: GridTileBar(title: Text(title, textAlign: TextAlign.center,),
