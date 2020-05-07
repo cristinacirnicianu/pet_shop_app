@@ -30,7 +30,6 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
                     _showOnlyFavorites = false;
                   }
                 });
-
               },
               itemBuilder: (_) => [
                 PopupMenuItem(
