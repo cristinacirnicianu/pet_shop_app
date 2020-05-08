@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petshopapp/providers/CartItem.dart';
+import '../providers/CartItem.dart';
 
 class Cart with ChangeNotifier {
   Map<String, CartItem> _items ={};
@@ -31,5 +31,13 @@ class Cart with ChangeNotifier {
 
   int get itemCount {
     return _items.length;
+  }
+
+  double get totalAmount {
+    double total = 0.0;
+    _items.forEach((key, cartItem) {
+      total+=cartItem.price * cartItem.quantity;
+    });
+    return total;
   }
 }
