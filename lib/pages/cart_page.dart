@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/widgets/cart_item.dart';
 import '../providers/cart.dart';
 import 'package:provider/provider.dart';
-import '../widgets/cart_item.dart';
 
 class CartPage extends StatelessWidget {
   static const routeName = '/cart';
@@ -50,14 +50,15 @@ class CartPage extends StatelessWidget {
           ),
           Expanded(
             child: ListView.builder(
-                itemBuilder: (context, index)=>CartItem(
-                  id: cart.getItems.values.toList()[index].id,
-                  title: cart.getItems.values.toList()[index].title,
-                  quantity: cart.getItems.values.toList()[index].quantity,
-                  price: cart.getItems.values.toList()[index].price
-                ),
-            itemCount: cart.getItems.length),
-          )
+                itemBuilder: (context, index) => CartItem(
+                     id: cart.getItems.values.toList()[index].id,
+                     productId: cart.getItems.keys.toList()[index],
+                      title: cart.getItems.values.toList()[index].title,
+                     price: cart.getItems.values.toList()[index].price,
+                     quantity: cart.getItems.values.toList()[index].quantity,
+                    ),
+                itemCount: cart.getItems.length),
+          ),
         ],
       ),
     );
