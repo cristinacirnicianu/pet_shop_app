@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:petshopapp/pages/cart_page.dart';
-import 'package:petshopapp/providers/cart.dart';
-import 'package:petshopapp/widgets/badge.dart';
-import 'package:petshopapp/widgets/products_grid.dart';
+import '../pages/cart_page.dart';
+import '../providers/cart.dart';
+import '../widgets/badge.dart';
+import '../widgets/products_grid.dart';
 import 'package:provider/provider.dart';
 
 enum FilterOptions {
