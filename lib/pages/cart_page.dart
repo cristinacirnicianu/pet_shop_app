@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../providers/cart.dart';
 import 'package:provider/provider.dart';
+import '../widgets/cart_item.dart';
 
 class CartPage extends StatelessWidget {
   static const routeName = '/cart';
@@ -21,16 +22,41 @@ class CartPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total', style: TextStyle( fontSize: 20,),),
-                  Spacer(),
-                  Chip(label: Text('\$${cart.totalAmount}',
+                  Text(
+                    'Total',
                     style: TextStyle(
-                        color: Colors.white),),
-                    backgroundColor: Theme.of(context).primaryColor,),
-                  FlatButton(child: Text('ORDER NOW'), onPressed: () {}, textColor: Theme.of(context).primaryColor,)
+                      fontSize: 20,
+                    ),
+                  ),
+                  Spacer(),
+                  Chip(
+                    label: Text(
+                      '\$${cart.totalAmount}',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    backgroundColor: Theme.of(context).primaryColor,
+                  ),
+                  FlatButton(
+                    child: Text('ORDER NOW'),
+                    onPressed: () {},
+                    textColor: Theme.of(context).primaryColor,
+                  )
                 ],
               ),
             ),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: ListView.builder(
+                itemBuilder: (context, index)=>CartItem(
+                  id: cart.getItems.values.toList()[index].id,
+                  title: cart.getItems.values.toList()[index].title,
+                  quantity: cart.getItems.values.toList()[index].quantity,
+                  price: cart.getItems.values.toList()[index].price
+                ),
+            itemCount: cart.getItems.length),
           )
         ],
       ),

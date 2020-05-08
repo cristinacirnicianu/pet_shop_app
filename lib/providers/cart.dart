@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../providers/CartItem.dart';
+import '../providers/CartModel.dart';
 
 class Cart with ChangeNotifier {
   Map<String, CartItem> _items ={};
