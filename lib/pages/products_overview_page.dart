@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import '../pages/cart_page.dart';
-import '../providers/cart.dart';
+import 'package:petshopapp/providers/cart.dart';
 import '../widgets/badge.dart';
 import '../widgets/products_grid.dart';
 import 'package:provider/provider.dart';
@@ -48,10 +47,12 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
             ),
             Consumer<Cart>(
               builder: (_, cartData, ch) =>
-                  Badge(child: ch, value: cartData.itemCount.toString()),
+                  Badge(
+                      child: ch,
+                      value: cartData.itemCount.toString()),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed(CartPage.routeName);
+                //  Navigator.of(context).pushNamed(CartPage.routeName);
                 },
                 icon: Icon(Icons.shopping_cart),
               ),
