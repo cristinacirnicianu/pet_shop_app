@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:petshopapp/providers/cart.dart';
+import '../providers/cart.dart' show Cart;
 import 'package:provider/provider.dart';
-import 'package:petshopapp/widgets/cart_item.dart';
+import '../widgets/cart_item.dart';
+
 class CartPage extends StatelessWidget {
   static const routeName = '/cart';
 
@@ -32,7 +33,13 @@ class CartPage extends StatelessWidget {
           ),
           SizedBox(),
           Expanded(
-            child: ListView.builder(itemBuilder: (context, index) =>CartItem() ,
+            child: ListView.builder(
+              itemBuilder: (context, index) =>CartItem(
+                  cart.items.values.toList()[index].id,
+                cart.items.values.toList()[index].price,
+                cart.items.values.toList()[index].quantity,
+                cart.items.values.toList()[index].title
+              ) ,
             itemCount: cart.items.length,),
           )
         ],
