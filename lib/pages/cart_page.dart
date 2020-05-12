@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/providers/orders.dart';
 import '../providers/cart.dart' show Cart;
 import 'package:provider/provider.dart';
 import '../widgets/cart_item.dart';
@@ -26,7 +27,14 @@ class CartPage extends StatelessWidget {
                   Chip(
                     label: Text('\$${cart.totalAmount}', style: TextStyle(color: Colors.white),),
                   backgroundColor: Theme.of(context).primaryColor,),
-                  FlatButton(child: Text('ORDER NOW',),textColor: Theme.of(context).primaryColor, onPressed: () {},),
+                  FlatButton(
+                    child: Text('ORDER NOW',),textColor: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      Provider.of<Orders>(context, listen: false).addOrder(
+                          cart.items.values.toList(),
+                          cart.totalAmount);
+                      cart.clear();
+                    },),
                 ],
               ),
             ),

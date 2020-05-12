@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petshopapp/pages/cart_page.dart';
 import 'package:petshopapp/providers/cart.dart';
+import 'package:petshopapp/providers/orders.dart';
 import './providers/products_provider.dart';
 import './pages/product_detail_page.dart';
 import './pages/products_overview_page.dart';
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider.value(value: Products(),
         ),
-        ChangeNotifierProvider.value(value: Cart(),)
+        ChangeNotifierProvider.value(value: Cart(),),
+        ChangeNotifierProvider.value(value: Orders()),
       ],
       child: MaterialApp(
         title: 'PetShop',
