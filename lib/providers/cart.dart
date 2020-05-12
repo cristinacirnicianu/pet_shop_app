@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class CartItem {
@@ -14,6 +15,14 @@ class Cart with ChangeNotifier {
 
   Map<String, CartItem> get items {
     return {..._items};
+  }
+
+  double get totalAmount{
+    var total =0.0;
+    _items.forEach((key, cartItem) {
+      total += cartItem.price * cartItem.quantity;
+    });
+    return total;
   }
 
   int get itemCount{
