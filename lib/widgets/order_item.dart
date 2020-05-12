@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:petshopapp/providers/orders.dart' as ord;
+import '../providers/orders.dart' as ord;
 import 'package:intl/intl.dart';
 
 class OrderItem extends StatelessWidget {
@@ -14,7 +14,7 @@ class OrderItem extends StatelessWidget {
         children: [
           ListTile(
             title: Text('\$${order.amount}'),
-            subtitle: Text(DateFormat('dd mm yyyy hh:mm').format(order.dateTime)),
+            subtitle: Text(DateFormat('dd/mm/yyyy hh:mm').format(order.dateTime)),
             trailing: IconButton(icon: Icon(Icons.expand_more),
             onPressed: () {},),
           ),
