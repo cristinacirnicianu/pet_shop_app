@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 
 class CartItem {
@@ -46,6 +45,11 @@ class Cart with ChangeNotifier {
       price: price,
       quantity: 1));
     }
+    notifyListeners();
+  }
+
+  void removeItem(String productId) {
+    _items.remove(productId);
     notifyListeners();
   }
 }
