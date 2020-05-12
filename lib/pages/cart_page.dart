@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petshopapp/providers/cart.dart';
 import 'package:provider/provider.dart';
+import 'package:petshopapp/widgets/cart_item.dart';
 class CartPage extends StatelessWidget {
   static const routeName = '/cart';
 
@@ -20,6 +21,7 @@ class CartPage extends StatelessWidget {
                 children: [
                   Text('Total', style: TextStyle(fontSize: 20),),
                   SizedBox(width: 10,),
+                  Spacer(),
                   Chip(
                     label: Text('\$${cart.totalAmount}', style: TextStyle(color: Colors.white),),
                   backgroundColor: Theme.of(context).primaryColor,),
@@ -27,6 +29,11 @@ class CartPage extends StatelessWidget {
                 ],
               ),
             ),
+          ),
+          SizedBox(),
+          Expanded(
+            child: ListView.builder(itemBuilder: (context, index) =>CartItem() ,
+            itemCount: cart.items.length,),
           )
         ],
       ) ,
