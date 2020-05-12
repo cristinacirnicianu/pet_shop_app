@@ -25,7 +25,7 @@ class CartPage extends StatelessWidget {
                   SizedBox(width: 10,),
                   Spacer(),
                   Chip(
-                    label: Text('\$${cart.totalAmount}', style: TextStyle(color: Colors.white),),
+                    label: Text('\$${cart.totalAmount.toStringAsFixed(2)}', style: TextStyle(color: Colors.white),),
                   backgroundColor: Theme.of(context).primaryColor,),
                   FlatButton(
                     child: Text('ORDER NOW',),textColor: Theme.of(context).primaryColor,
