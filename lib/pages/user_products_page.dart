@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:petshopapp/providers/products_provider.dart';
+import 'package:petshopapp/widgets/app_drawer.dart';
 import 'package:petshopapp/widgets/user_product_item.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,7 @@ class UserProductsPage extends StatelessWidget {
           ),
         ],
       ),
+      drawer: AppDrawer(),
       body: Padding(
         padding: EdgeInsets.all(8),
         child: ListView.builder(
