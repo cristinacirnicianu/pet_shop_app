@@ -4,6 +4,7 @@ import 'package:petshopapp/widgets/user_product_item.dart';
 import 'package:provider/provider.dart';
 
 class UserProductsPage extends StatelessWidget {
+  static const routeName ='/user-products';
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<Products>(context);
