@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/pages/edit_product_page.dart';
 import 'package:petshopapp/pages/user_products_page.dart';
 import './pages/cart_page.dart';
 import './pages/orders_page.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
           CartPage.routeName: (ctx) => CartPage(),
           OrdersPage.routeName: (ctx) => OrdersPage(),
           UserProductsPage.routeName: (ctx)=>UserProductsPage(),
+          EditProductPage.routeName: (ctx)=>EditProductPage(),
         },
       ),
     );
