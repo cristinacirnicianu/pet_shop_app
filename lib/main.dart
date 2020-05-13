@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/pages/user_products_page.dart';
 import './pages/cart_page.dart';
 import './pages/orders_page.dart';
 import './providers/cart.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
           CartPage.routeName: (ctx) => CartPage(),
           OrdersPage.routeName: (ctx) => OrdersPage(),
+          UserProductsPage.routeName: (ctx)=>UserProductsPage(),
         },
       ),
     );
