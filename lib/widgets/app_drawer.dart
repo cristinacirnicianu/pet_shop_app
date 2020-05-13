@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/pages/user_products_page.dart';
 import '../pages/orders_page.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -24,6 +25,14 @@ class AppDrawer extends StatelessWidget {
             title: Text('Orders'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(OrdersPage.routeName);
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.edit),
+            title: Text('Manage products'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(UserProductsPage.routeName);
             },
           ),
         ],
