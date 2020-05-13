@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/pages/edit_product_page.dart';
 import 'package:petshopapp/providers/products_provider.dart';
 import 'package:petshopapp/widgets/app_drawer.dart';
 import 'package:petshopapp/widgets/user_product_item.dart';
@@ -15,7 +16,9 @@ class UserProductsPage extends StatelessWidget {
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).pushNamed(EditProductPage.routeName);
+            },
           ),
         ],
       ),
