@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EditProductPage extends StatefulWidget {
+  static const routeName = '/edit-product';
   @override
   _EditProductPageState createState() => _EditProductPageState();
 }
