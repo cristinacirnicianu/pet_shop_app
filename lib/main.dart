@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         title: 'PetShop',
         theme: ThemeData(
           textTheme: TextTheme(
-            bodyText1:TextStyle(color: Colors.white),
+            title:TextStyle(color: Colors.black),
           ),
             primarySwatch: Colors.orange,
             fontFamily: 'Lato',

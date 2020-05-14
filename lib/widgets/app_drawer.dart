@@ -6,13 +6,15 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: Column(
+      child: ListView(
+        padding: EdgeInsets.zero,
         children: [
-          AppBar(
-            title: Text('Hellow user!'),
-            automaticallyImplyLeading: false,
+          DrawerHeader(
+            child: Text('Hellow user!'),
+            decoration: BoxDecoration(
+              color: Colors.blue,
+            ),
           ),
-          Divider(),
           ListTile(
             leading: Icon(Icons.shop, semanticLabel: 'Shop',),
            title: Text('Shop'),
@@ -20,6 +22,7 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed('/');
             },
           ),
+          Divider(),
           ListTile(
             leading: Icon(Icons.payment),
             title: Text('Orders'),
