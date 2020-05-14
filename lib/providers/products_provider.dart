@@ -75,7 +75,9 @@ class Products extends ChangeNotifier {
       _items.add(newProduct);
       // _items.insert(0, newProduct); //insert at the start of list
       notifyListeners();
-    });
+    }).catchError((error) {
+      throw error;
+     });
   }
 
   void updateProduct(String id, Product newProduct) {
