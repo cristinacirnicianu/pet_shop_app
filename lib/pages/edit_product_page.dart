@@ -17,12 +17,48 @@ class _EditProductPageState extends State<EditProductPage> {
   final _imageUrlFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
   var _editedProduct =
-      Product(id: null, title: '', price: 0, description: '', imageUrl: '');
+  Product(id: null,
+      title: '',
+      price: 0,
+      description: '',
+      imageUrl: '');
 
   @override
   void initState() {
     _imageUrlFocusNode.addListener(_updateImageUrl);
     super.initState();
+  }
+
+  var _initValues = {
+    'title': '',
+    'description': '',
+    'price': '',
+    'imageUrl': ''
+  };
+
+  var _isInit = true;
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      final productId = ModalRoute
+          .of(context)
+          .settings
+          .arguments as String;
+      if(productId != null){
+        _editedProduct =
+            Provider.of<Products>(context, listen: false).findById(productId);
+        _initValues = {
+          'title': _editedProduct.title,
+          'description': _editedProduct.description,
+          'price': _editedProduct.price.toString(),
+          'imageUrl':'',
+        };
+        _imageUrlController.text = _editedProduct.imageUrl;
+      }
+    }
+    _isInit = false;
+    super.didChangeDependencies();
   }
 
   @override
@@ -38,11 +74,10 @@ class _EditProductPageState extends State<EditProductPage> {
   void _updateImageUrl() {
     if (!_imageUrlFocusNode.hasFocus) {
       if ((!_imageUrlController.text.startsWith('http') &&
-              !_imageUrlController.text.startsWith('https')) ||
+          !_imageUrlController.text.startsWith('https')) ||
           (!_imageUrlController.text.endsWith('.png') &&
               !_imageUrlController.text.endsWith('.jpg') &&
-              !_imageUrlController.text.endsWith('.jpeg')))
-      {
+              !_imageUrlController.text.endsWith('.jpeg'))) {
         return;
       }
 
@@ -56,8 +91,8 @@ class _EditProductPageState extends State<EditProductPage> {
       return;
     }
     _form.currentState.save();
-   Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
-   Navigator.of(context).pop();
+    Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+    Navigator.of(context).pop();
   }
 
   @override
@@ -81,6 +116,7 @@ class _EditProductPageState extends State<EditProductPage> {
           child: ListView(
             children: [
               TextFormField(
+                initialValue: _initValues['title'],
                 decoration: InputDecoration(labelText: 'Title'),
                 textInputAction: TextInputAction.next,
                 onFieldSubmitted: (_) {
@@ -103,6 +139,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 },
               ),
               TextFormField(
+                initialValue: _initValues['price'],
                 decoration: InputDecoration(labelText: 'Price'),
                 textInputAction: TextInputAction.next,
                 keyboardType: TextInputType.number,
@@ -132,6 +169,7 @@ class _EditProductPageState extends State<EditProductPage> {
                 },
               ),
               TextFormField(
+                initialValue: _initValues['description'],
                 decoration: InputDecoration(labelText: 'Description'),
                 maxLines: 3,
                 focusNode: _descriptionFocusNode,
@@ -166,11 +204,11 @@ class _EditProductPageState extends State<EditProductPage> {
                     child: _imageUrlController.text.isEmpty
                         ? Text('Enter a URL')
                         : FittedBox(
-                            child: Image.network(
-                              _imageUrlController.text,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                      child: Image.network(
+                        _imageUrlController.text,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   Expanded(
                     child: TextFormField(
@@ -198,7 +236,7 @@ class _EditProductPageState extends State<EditProductPage> {
                         }
                         if (!value.endsWith('.png') &&
                             !value.endsWith('.jpg') &&
-                                !value.endsWith('.jpeg')) {
+                            !value.endsWith('.jpeg')) {
                           return 'Please enter a valid URL';
                         }
                         return null;

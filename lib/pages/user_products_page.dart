@@ -6,7 +6,8 @@ import 'package:petshopapp/widgets/user_product_item.dart';
 import 'package:provider/provider.dart';
 
 class UserProductsPage extends StatelessWidget {
-  static const routeName ='/user-products';
+  static const routeName = '/user-products';
+
   @override
   Widget build(BuildContext context) {
     final productData = Provider.of<Products>(context);
@@ -28,13 +29,14 @@ class UserProductsPage extends StatelessWidget {
         child: ListView.builder(
             itemCount: productData.items.length,
             itemBuilder: (_, index) => Column(
-              children: [
-                UserProductItem(
-                    productData.items[index].title,
-                    productData.items[index].imageUrl),
-                Divider(),
-              ],
-            )),
+                  children: [
+                    UserProductItem(
+                        productData.items[index].id,
+                        productData.items[index].title,
+                        productData.items[index].imageUrl),
+                    Divider(),
+                  ],
+                )),
       ),
     );
   }
