@@ -56,9 +56,9 @@ class Products extends ChangeNotifier {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
-  void addProduct(Product product) {
+  Future<void> addProduct(Product product) {
     const url = 'https://flutter-demo-fire.firebaseio.com/products.json';
-    http.post(url, body: json.encode({
+     return http.post(url, body: json.encode({
       'title': product.title,
       'description': product.description,
       'imageUrl': product.imageUrl,

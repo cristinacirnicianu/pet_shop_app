@@ -33,6 +33,7 @@ class _EditProductPageState extends State<EditProductPage> {
   };
 
   var _isInit = true;
+  var _isLoading = false;
 
   @override
   void didChangeDependencies() {
@@ -84,13 +85,27 @@ class _EditProductPageState extends State<EditProductPage> {
       return;
     }
     _form.currentState.save();
+    setState(() {
+      _isLoading=true;
+    });
+
     if (_editedProduct.id != null) {
       Provider.of<Products>(context, listen: false)
           .updateProduct(_editedProduct.id, _editedProduct);
+      setState(() {
+        _isLoading =false;
+      });
+      Navigator.of(context).pop();
     } else {
-      Provider.of<Products>(context, listen: false).addProduct(_editedProduct);
+      Provider.of<Products>(context, listen: false)
+          .addProduct(_editedProduct)
+          .then((_) {
+        Navigator.of(context).pop();
+        setState(() {
+          _isLoading = false;
+        });
+      });
     }
-    Navigator.of(context).pop();
   }
 
   @override
@@ -107,7 +122,9 @@ class _EditProductPageState extends State<EditProductPage> {
           )
         ],
       ),
-      body: Padding(
+      body:_isLoading ? Center(
+        child: CircularProgressIndicator(),
+      ) : Padding(
         padding: const EdgeInsets.all(8.0),
         child: Form(
           key: _form,
