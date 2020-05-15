@@ -56,16 +56,19 @@ class Products extends ChangeNotifier {
     return _items.firstWhere((prod) => prod.id == id);
   }
 
-  Future<void> addProduct(Product product) {
-    const url = 'https://flutter-demo-fire.firebaseio.com/products.json';
-     return http.post(url, body: json.encode({
-      'title': product.title,
-      'description': product.description,
-      'imageUrl': product.imageUrl,
-      'price': product.price,
-      'isFavorite': product.isFavorite,
-    }
-    ) ).then((response) {
+  Future<void> addProduct(Product product) async {
+    const url = 'https://flutter-demo-fire.firebaseio.com/products';
+    try {
+      final response = await http.post(
+        url,
+        body: json.encode({
+          'title': product.title,
+          'description': product.description,
+          'imageUrl': product.imageUrl,
+          'price': product.price,
+          'isFavorite': product.isFavorite,
+        }),
+      );
       final newProduct = Product(
           title: product.title,
           description: product.description,
@@ -75,9 +78,10 @@ class Products extends ChangeNotifier {
       _items.add(newProduct);
       // _items.insert(0, newProduct); //insert at the start of list
       notifyListeners();
-    }).catchError((error) {
+    } catch (error) {
+      print(error);
       throw error;
-     });
+    }
   }
 
   void updateProduct(String id, Product newProduct) {
@@ -90,11 +94,11 @@ class Products extends ChangeNotifier {
     }
   }
 
-  void deleteProduct (String id){
-   _items.removeWhere((prod) => prod.id == id);
-   notifyListeners();
-    }
+  void deleteProduct(String id) {
+    _items.removeWhere((prod) => prod.id == id);
+    notifyListeners();
   }
+}
 //  void showFavoritesOnly() {
 //  _showFavoritesOnly = true;
 //  notifyListeners();
