@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/providers/products_provider.dart';
 import '../pages/cart_page.dart';
 import '../providers/cart.dart';
 import '../widgets/app_drawer.dart';
@@ -18,6 +19,21 @@ class ProductsOverviewPage extends StatefulWidget {
 
 class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
   var _showOnlyFavorites = false;
+  var _isInit = true;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      Provider.of<Products>(context).fetchAndSetProducts();
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,12 +65,10 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
             ),
             Consumer<Cart>(
               builder: (_, cartData, ch) =>
-                  Badge(
-                      child: ch,
-                      value: cartData.itemCount.toString()),
+                  Badge(child: ch, value: cartData.itemCount.toString()),
               child: IconButton(
                 onPressed: () {
-                 Navigator.of(context).pushNamed(CartPage.routeName);
+                  Navigator.of(context).pushNamed(CartPage.routeName);
                 },
                 icon: Icon(Icons.shopping_cart),
               ),
