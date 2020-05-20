@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:petshopapp/pages/auth_page.dart';
 import 'package:petshopapp/pages/edit_product_page.dart';
 import 'package:petshopapp/pages/user_products_page.dart';
+import 'package:petshopapp/providers/auth.dart';
 import './pages/cart_page.dart';
 import './pages/orders_page.dart';
 import './providers/cart.dart';
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
+        ChangeNotifierProvider.value(value: Auth(),
+        ),
         ChangeNotifierProvider.value(value: Products(),
         ),
         ChangeNotifierProvider.value(value: Cart(),),
