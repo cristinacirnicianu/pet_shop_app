@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import './cart.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -23,20 +25,43 @@ class Orders with ChangeNotifier {
     return [..._orders];
   }
 
-  Future<void> addOrder(List<CartItem> cartProducts, double total)async {
+  Future<void> fetchAndSetOrders() async {
+    const url = 'https://flutter-demo-fire.firebaseio.com/orders.json';
+    final response = await http.get(url);
+    final List<OrderItem> loadedOrders = [];
+    final extractedData = json.decode(response.body) as Map<String, dynamic>;
+    if(extractedData == null) {
+      return;
+    }
+    extractedData.forEach((orderId, orderData) {
+      loadedOrders.add(OrderItem(
+          id: orderId,
+          amount: orderData['amount'],
+          products: (orderData['products'] as List<dynamic>).map((cart) => CartItem(
+            id: cart['id'], price: cart['price'], title: cart['title'], quantity: cart['quantity'],
+          )).toList(),
+          dateTime: DateTime.parse(orderData['dateTime'])));
+    });
+    _orders = loadedOrders.reversed.toList();
+    notifyListeners();
+  }
+
+  Future<void> addOrder(List<CartItem> cartProducts, double total) async {
     const url = 'https://flutter-demo-fire.firebaseio.com/orders.json';
     final timeStamp = DateTime.now();
-   final response = await http.post(url, body: json.encode({
-      'amount': total,
-      'dateTime': timeStamp.toIso8601String(),
-      'products': cartProducts.map((cp)=> {
-        'id': cp.id,
-        'title': cp.title,
-        'quantity': cp.quantity,
-        'price': cp.price,
-      }).toList(),
-
-    }));
+    final response = await http.post(url,
+        body: json.encode({
+          'amount': total,
+          'dateTime': timeStamp.toIso8601String(),
+          'products': cartProducts
+              .map((cp) => {
+                    'id': cp.id,
+                    'title': cp.title,
+                    'quantity': cp.quantity,
+                    'price': cp.price,
+                  })
+              .toList(),
+        }));
     _orders.insert(
         0,
         OrderItem(
