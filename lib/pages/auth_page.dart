@@ -112,7 +112,7 @@ class _AuthCardState extends State<AuthCard> {
       _isLoading = true;
     });
     if (_authMode == AuthMode.Login) {
-      // Log user in
+      await Provider.of<Auth>(context, listen: false).signIn(_authData['email'], _authData['password']);
     } else {
      await Provider.of<Auth>(context, listen: false).signup(_authData['email'], _authData['password']);
     }
@@ -155,9 +155,8 @@ class _AuthCardState extends State<AuthCard> {
                 TextFormField(
                   decoration: InputDecoration(labelText: 'E-Mail'),
                   keyboardType: TextInputType.emailAddress,
-                  validator: (value) {
-                    if (value.isEmpty || !value.contains('@')) {
-                      return 'Invalid email!';
+                  validator: (value) {if (value.isEmpty || !value.contains('@')) {
+                    return 'Invalid email!';
                     }
                   },
                   onSaved: (value) {
