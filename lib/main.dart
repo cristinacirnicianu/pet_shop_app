@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/pages/auth_page.dart';
 import 'package:petshopapp/pages/edit_product_page.dart';
 import 'package:petshopapp/pages/user_products_page.dart';
 import './pages/cart_page.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.orange,
             fontFamily: 'Lato',
             accentColor: Colors.deepOrange),
-        home: ProductsOverviewPage(),
+        home: AuthPage(),
         routes: {
           ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
           CartPage.routeName: (ctx) => CartPage(),
