@@ -43,7 +43,8 @@ class Products extends ChangeNotifier {
 
   var _showFavoritesOnly = false;
   final String authToken;
-  Products(this.authToken, this._items);
+  final String userId;
+  Products(this.authToken, this.userId, this._items);
 
   List<Product> get items {
     if (_showFavoritesOnly) {
@@ -61,7 +62,7 @@ class Products extends ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    final url = 'https://flutter-demo-fire.firebaseio.com/products.json?auth=$authToken';
+    var url = 'https://flutter-demo-fire.firebaseio.com/products.json?auth=$authToken';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -69,12 +70,15 @@ class Products extends ChangeNotifier {
       if(extractedData==null){
         return;
       }
+      url = 'https://flutter-demo-fire.firebaseio.com/userFAvorites/$userId.json?auth=$authToken';
+      final favoriteResponse =await http.get(url);
+      final favoriteData = json.decode(favoriteResponse.body);
       extractedData.forEach((prodId, prodData) {
         loadedProducts.add(Product(
           id: prodId,
           description: prodData['description'],
           imageUrl: prodData['imageUrl'],
-          isFavorite: prodData['isFavorite'],
+          isFavorite:favoriteData ==null ? false :  favoriteData[prodId] ?? false,
           price: prodData['price'],
           title: prodData['title'],
         ));
@@ -96,7 +100,6 @@ class Products extends ChangeNotifier {
           'description': product.description,
           'imageUrl': product.imageUrl,
           'price': product.price,
-          'isFavorite': product.isFavorite,
         }),
       );
       final newProduct = Product(
