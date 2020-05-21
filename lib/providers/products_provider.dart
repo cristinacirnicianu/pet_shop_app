@@ -62,7 +62,7 @@ class Products extends ChangeNotifier {
   }
 
   Future<void> fetchAndSetProducts() async {
-    var url = 'https://flutter-demo-fire.firebaseio.com/products.json?auth=$authToken';
+    var url = 'https://flutter-demo-fire.firebaseio.com/products.json?auth=$authToken&orderBy="creatorId"&equalTo="$userId"';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -100,6 +100,7 @@ class Products extends ChangeNotifier {
           'description': product.description,
           'imageUrl': product.imageUrl,
           'price': product.price,
+          'creatorId': userId,
         }),
       );
       final newProduct = Product(
