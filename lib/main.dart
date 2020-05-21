@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petshopapp/pages/auth_page.dart';
 import 'package:petshopapp/pages/edit_product_page.dart';
+import 'package:petshopapp/pages/spash_page.dart';
 import 'package:petshopapp/pages/user_products_page.dart';
 import 'package:petshopapp/providers/auth.dart';
 import './pages/cart_page.dart';
@@ -25,7 +26,9 @@ class MyApp extends StatelessWidget {
           value: Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-          update: (_, auth, previousProducts) => Products(auth.token, auth.userId,
+          update: (_, auth, previousProducts) => Products(
+              auth.token,
+              auth.userId,
               previousProducts == null ? [] : previousProducts.items),
 //          builder: (ctx, auth, previousProducts) => Products(
 //              auth.token, previousProducts ==null ? [] : previousProducts.items),
@@ -34,8 +37,8 @@ class MyApp extends StatelessWidget {
           value: Cart(),
         ),
         ChangeNotifierProxyProvider<Auth, Orders>(
-          update: (_, auth, previousOrders) => Orders(
-              auth.token, auth.userId, previousOrders == null ? [] : previousOrders.orders),
+          update: (_, auth, previousOrders) => Orders(auth.token, auth.userId,
+              previousOrders == null ? [] : previousOrders.orders),
         ),
       ],
       child: Consumer<Auth>(
@@ -48,7 +51,15 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.orange,
               fontFamily: 'Lato',
               accentColor: Colors.deepOrange),
-          home: auth.isAuth ? ProductsOverviewPage() : AuthPage(),
+          home: auth.isAuth
+              ? ProductsOverviewPage()
+              : FutureBuilder(
+                  future: auth.tryAutoLogin(),
+                  builder: (ctx, authResultSnapshot) =>
+                      authResultSnapshot.connectionState ==
+                              ConnectionState.waiting
+                          ? SplashPage()
+                          : AuthPage()),
           routes: {
             ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
             CartPage.routeName: (ctx) => CartPage(),
