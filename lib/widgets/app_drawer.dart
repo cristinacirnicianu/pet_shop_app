@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petshopapp/pages/user_products_page.dart';
+import 'package:petshopapp/providers/auth.dart';
+import 'package:provider/provider.dart';
 import '../pages/orders_page.dart';
 
 class AppDrawer extends StatelessWidget {
@@ -36,6 +38,15 @@ class AppDrawer extends StatelessWidget {
             title: Text('Manage products'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(UserProductsPage.routeName);
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(Icons.exit_to_app),
+            title: Text('Logout'),
+            onTap: () {
+              Navigator.of(context).pop();
+            Provider.of<Auth>(context).logout();
             },
           ),
         ],
