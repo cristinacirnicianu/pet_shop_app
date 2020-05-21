@@ -21,34 +21,43 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider.value(value: Auth(),
+        ChangeNotifierProvider.value(
+          value: Auth(),
         ),
         ChangeNotifierProxyProvider<Auth, Products>(
-        update: (_, auth, previousProducts) => Products(auth.token, previousProducts == null ? [] : previousProducts.items),
+          update: (_, auth, previousProducts) => Products(auth.token,
+              previousProducts == null ? [] : previousProducts.items),
 //          builder: (ctx, auth, previousProducts) => Products(
 //              auth.token, previousProducts ==null ? [] : previousProducts.items),
         ),
-        ChangeNotifierProvider.value(value: Cart(),),
-        ChangeNotifierProvider.value(value: Orders()),
+        ChangeNotifierProvider.value(
+          value: Cart(),
+        ),
+        ChangeNotifierProxyProvider<Auth, Orders>(
+          update: (_, auth, previousOrders) => Orders(
+              auth.token, previousOrders == null ? [] : previousOrders.orders),
+        ),
       ],
-      child:Consumer<Auth>(builder: (ctx, auth, _) =>MaterialApp(
-        title: 'PetShop',
-        theme: ThemeData(
-            textTheme: TextTheme(
-              title:TextStyle(color: Colors.black),
-            ),
-            primarySwatch: Colors.orange,
-            fontFamily: 'Lato',
-            accentColor: Colors.deepOrange),
-        home: auth.isAuth ? ProductsOverviewPage() : AuthPage(),
-        routes: {
-          ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
-          CartPage.routeName: (ctx) => CartPage(),
-          OrdersPage.routeName: (ctx) => OrdersPage(),
-          UserProductsPage.routeName: (ctx)=>UserProductsPage(),
-          EditProductPage.routeName: (ctx)=>EditProductPage(),
-        },
-      ), ),
+      child: Consumer<Auth>(
+        builder: (ctx, auth, _) => MaterialApp(
+          title: 'PetShop',
+          theme: ThemeData(
+              textTheme: TextTheme(
+                title: TextStyle(color: Colors.black),
+              ),
+              primarySwatch: Colors.orange,
+              fontFamily: 'Lato',
+              accentColor: Colors.deepOrange),
+          home: auth.isAuth ? ProductsOverviewPage() : AuthPage(),
+          routes: {
+            ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
+            CartPage.routeName: (ctx) => CartPage(),
+            OrdersPage.routeName: (ctx) => OrdersPage(),
+            UserProductsPage.routeName: (ctx) => UserProductsPage(),
+            EditProductPage.routeName: (ctx) => EditProductPage(),
+          },
+        ),
+      ),
     );
   }
 }
