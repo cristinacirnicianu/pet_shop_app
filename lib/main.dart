@@ -28,16 +28,16 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider.value(value: Cart(),),
         ChangeNotifierProvider.value(value: Orders()),
       ],
-      child: MaterialApp(
+      child:Consumer<Auth>(builder: (ctx, auth, _) =>MaterialApp(
         title: 'PetShop',
         theme: ThemeData(
-          textTheme: TextTheme(
-            title:TextStyle(color: Colors.black),
-          ),
+            textTheme: TextTheme(
+              title:TextStyle(color: Colors.black),
+            ),
             primarySwatch: Colors.orange,
             fontFamily: 'Lato',
             accentColor: Colors.deepOrange),
-        home: AuthPage(),
+        home: auth.isAuth ? ProductsOverviewPage() : AuthPage(),
         routes: {
           ProductDetailPage.routeName: (ctx) => ProductDetailPage(),
           CartPage.routeName: (ctx) => CartPage(),
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
           UserProductsPage.routeName: (ctx)=>UserProductsPage(),
           EditProductPage.routeName: (ctx)=>EditProductPage(),
         },
-      ),
+      ), ),
     );
   }
 }
