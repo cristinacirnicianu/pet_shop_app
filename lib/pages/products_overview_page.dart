@@ -29,6 +29,8 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
+
     if (_isInit) {
       setState(() {
         _isLoading = true;
@@ -38,9 +40,10 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
           _isLoading=false;
         });
       });
+      setState(() {
+        _isInit = false;
+      });
     }
-    _isInit = false;
-    super.didChangeDependencies();
   }
 
   @override
