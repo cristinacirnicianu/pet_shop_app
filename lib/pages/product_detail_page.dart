@@ -20,7 +20,9 @@ final loadedProducts = Provider.of<Products>(context, listen: false).findById(pr
             Container(
                 height: 300,
                 width: double.infinity,
-                child: Image.network(loadedProducts.imageUrl, fit: BoxFit.cover,),
+                child: Hero(
+                  tag: loadedProducts.id,
+                    child: Image.network(loadedProducts.imageUrl, fit: BoxFit.cover,)),
             ),
             SizedBox(height: 10,),
             Text('\$${loadedProducts.price}', style: TextStyle(color: Colors.grey, fontSize: 20),),
