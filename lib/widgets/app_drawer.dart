@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/helpers/custom_route.dart';
 import 'package:petshopapp/pages/user_products_page.dart';
 import 'package:petshopapp/providers/auth.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,8 @@ class AppDrawer extends StatelessWidget {
             title: Text('Orders'),
             onTap: () {
               Navigator.of(context).pushReplacementNamed(OrdersPage.routeName);
+           //   Navigator.of(context).pushReplacement(CustomRoute(builder: (ctx) => OrdersPage(),),);
+              //cannot use this future until solve CustomRoute issue
             },
           ),
           Divider(),

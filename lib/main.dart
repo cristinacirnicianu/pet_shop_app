@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:petshopapp/helpers/custom_route.dart';
 import 'package:petshopapp/pages/auth_page.dart';
 import 'package:petshopapp/pages/edit_product_page.dart';
 import 'package:petshopapp/pages/spash_page.dart';
@@ -50,6 +51,11 @@ class MyApp extends StatelessWidget {
               ),
               primarySwatch: Colors.orange,
               fontFamily: 'Lato',
+//              pageTransitionsTheme: PageTransitionsTheme(builders:
+////              {
+////                TargetPlatform.android: CustomPageTransitionBuilder(),
+////                TargetPlatform.iOS: CustomPageTransitionBuilder(),
+////              }),  use it after fix CustomRoute issue
               accentColor: Colors.deepOrange),
           home: auth.isAuth
               ? ProductsOverviewPage()
